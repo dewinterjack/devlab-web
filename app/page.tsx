@@ -21,19 +21,19 @@ export default function Home() {
       setIsUploading(true);
       setResults([]);
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append("image", file);
 
-      const response = await fetch('https://jackd-methodicaltealhaddock.web.val.run', {
-        method: 'POST',
+      const response = await fetch(process.env.NEXT_PUBLIC_API_URL!, {
+        method: "POST",
         body: formData,
       });
 
       if (!response.ok) {
-        throw new Error('Upload failed');
+        throw new Error("Upload failed");
       }
 
       const data: UploadResponse = await response.json();
-      
+
       if (data.success) {
         setResults(data.observations);
         toast({
@@ -41,7 +41,7 @@ export default function Home() {
           description: "Image analyzed successfully",
         });
       } else {
-        throw new Error('Analysis failed');
+        throw new Error("Analysis failed");
       }
     } catch (error) {
       toast({
@@ -63,9 +63,12 @@ export default function Home() {
             Upload an image to get AI-powered observations
           </p>
         </div>
-        
+
         <Card className="p-6">
-          <ImageUpload onImageUpload={handleImageUpload} isUploading={isUploading} />
+          <ImageUpload
+            onImageUpload={handleImageUpload}
+            isUploading={isUploading}
+          />
         </Card>
 
         {isUploading && (
