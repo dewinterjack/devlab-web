@@ -56,10 +56,11 @@ export default function Home() {
           </p>
         </div>
 
-        <Card className="p-6">
+        <Card className="p-6 max-w-3xl mx-auto">
           <ImageUpload
             onImageUpload={handleImageUpload}
             isUploading={isUploading}
+            className="max-w-3xl mx-auto"
           />
         </Card>
 

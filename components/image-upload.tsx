@@ -73,11 +73,11 @@ export function ImageUpload({
           </div>
         </div>
       ) : (
-        <div className="relative rounded-lg overflow-hidden">
+        <div className="relative rounded-lg overflow-hidden aspect-video w-full max-w-3xl mx-auto">
           <img
             src={preview}
             alt="Preview"
-            className="w-full h-auto object-cover rounded-lg"
+            className="w-full h-full object-cover rounded-lg"
           />
           {isUploading ? (
             <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
