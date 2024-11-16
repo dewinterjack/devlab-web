@@ -62,14 +62,12 @@ export function ImageUpload({
           )}
         >
           <input {...getInputProps()} />
-          <Upload className="w-10 h-10 mx-auto mb-4 text-muted-foreground" />
+          <Upload className="w-10 h-10 mx-auto mb-4" />
           <div className="space-y-2">
             <p className="text-lg font-medium">
               Drop your image here, or click to select
             </p>
-            <p className="text-sm text-muted-foreground">
-              Supports JPG, PNG, GIF up to 10MB
-            </p>
+            <p className="text-sm">Supports JPG, PNG, GIF up to 10MB</p>
           </div>
         </div>
       ) : (
@@ -85,8 +83,8 @@ export function ImageUpload({
             </div>
           ) : (
             <Button
-              variant="destructive"
               size="icon"
+              variant="default"
               className="absolute top-2 right-2"
               onClick={removeImage}
             >

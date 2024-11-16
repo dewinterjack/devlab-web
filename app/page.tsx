@@ -5,6 +5,7 @@ import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
 
 interface UploadResponse {
   observations: string[];
@@ -14,6 +15,7 @@ interface UploadResponse {
 export default function Home() {
   const [isUploading, setIsUploading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
+  const { toast } = useToast();
 
   const handleImageUpload = async (file: File) => {
     try {
@@ -35,19 +37,23 @@ export default function Home() {
 
       if (data.success) {
         setResults(data.observations);
-        toast.success("Image analyzed successfully");
+        toast({
+          title: "Image analyzed successfully",
+        });
       } else {
         throw new Error("Analysis failed");
       }
     } catch (error) {
-      toast.error("Failed to analyze image");
+      toast({
+        title: "Failed to analyze image",
+      });
     } finally {
       setIsUploading(false);
     }
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-background to-muted p-8">
+    <main className="min-h-screen p-8">
       <div className="max-w-3xl mx-auto space-y-8">
         <div className="text-center space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">Image Summary</h1>
