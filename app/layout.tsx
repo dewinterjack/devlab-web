@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 const workSans = Work_Sans({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Image Summary",
-  description: "AI-powered image analysis",
+  title: "Devlab",
+  description: "Dev playground",
 };
 
 export default function RootLayout({

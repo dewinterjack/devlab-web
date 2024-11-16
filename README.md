@@ -1,4 +1,4 @@
-# image-summary-web
+# devlab-web
 
 `pnpm i`
 
