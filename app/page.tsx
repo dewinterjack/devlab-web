@@ -1,8 +1,8 @@
 "use client";
 
-import { ImageUpload } from "@/components/ui/image-upload";
+import { ImageUpload } from "@/components/image-upload";
 import { Card } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 
@@ -12,7 +12,6 @@ interface UploadResponse {
 }
 
 export default function Home() {
-  const { toast } = useToast();
   const [isUploading, setIsUploading] = useState(false);
   const [results, setResults] = useState<string[]>([]);
 
@@ -36,19 +35,12 @@ export default function Home() {
 
       if (data.success) {
         setResults(data.observations);
-        toast({
-          title: "Success",
-          description: "Image analyzed successfully",
-        });
+        toast.success("Image analyzed successfully");
       } else {
         throw new Error("Analysis failed");
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "Failed to analyze image",
-        variant: "destructive",
-      });
+      toast.error("Failed to analyze image");
     } finally {
       setIsUploading(false);
     }

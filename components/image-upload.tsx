@@ -4,7 +4,7 @@ import { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { Upload, X, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
 
 interface ImageUploadProps {
   onImageUpload: (file: File) => void;
@@ -12,28 +12,35 @@ interface ImageUploadProps {
   className?: string;
 }
 
-export function ImageUpload({ onImageUpload, isUploading, className }: ImageUploadProps) {
+export function ImageUpload({
+  onImageUpload,
+  isUploading,
+  className,
+}: ImageUploadProps) {
   const [preview, setPreview] = useState<string | null>(null);
 
-  const onDrop = useCallback(async (acceptedFiles: File[]) => {
-    const file = acceptedFiles[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-      onImageUpload(file);
-    }
-  }, [onImageUpload]);
+  const onDrop = useCallback(
+    async (acceptedFiles: File[]) => {
+      const file = acceptedFiles[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setPreview(reader.result as string);
+        };
+        reader.readAsDataURL(file);
+        onImageUpload(file);
+      }
+    },
+    [onImageUpload]
+  );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: {
-      'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.webp']
+      "image/*": [".jpeg", ".jpg", ".png", ".gif", ".webp"],
     },
     maxFiles: 1,
-    disabled: isUploading
+    disabled: isUploading,
   });
 
   const removeImage = () => {
@@ -47,7 +54,9 @@ export function ImageUpload({ onImageUpload, isUploading, className }: ImageUplo
           {...getRootProps()}
           className={cn(
             "border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
-            isDragActive ? "border-primary bg-primary/5" : "border-muted-foreground/25 hover:border-primary/50",
+            isDragActive
+              ? "border-primary bg-primary/5"
+              : "border-muted-foreground/25 hover:border-primary/50",
             "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
             isUploading && "opacity-50 cursor-not-allowed"
           )}
@@ -55,7 +64,9 @@ export function ImageUpload({ onImageUpload, isUploading, className }: ImageUplo
           <input {...getInputProps()} />
           <Upload className="w-10 h-10 mx-auto mb-4 text-muted-foreground" />
           <div className="space-y-2">
-            <p className="text-lg font-medium">Drop your image here, or click to select</p>
+            <p className="text-lg font-medium">
+              Drop your image here, or click to select
+            </p>
             <p className="text-sm text-muted-foreground">
               Supports JPG, PNG, GIF up to 10MB
             </p>
